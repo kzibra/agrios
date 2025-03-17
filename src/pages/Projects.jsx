@@ -1,47 +1,10 @@
-const Projects = () => {
-  const categories = [
-    {
-      id: 1,
-      title: "Easy Harvesting",
-      image: "src/assets/projects/grid1.jpg",
-      href: "#easy-harvesting",
-    },
-    {
-      id: 2,
-      title: "Agriculture Farming",
-      image: "src/assets/projects/grid2.jpg",
-      href: "#agriculture-farming",
-    },
-    {
-      id: 3,
-      title: "Ecological Farming",
-      image: "src/assets/projects/grid3.jpg",
-      href: "#ecological-farming",
-    },
-    {
-      id: 4,
-      title: "Organic Solutions",
-      image: "src/assets/projects/grid4.jpg",
-      href: "#organic-solutions",
-    },
-    {
-      id: 5,
-      title: "Fresh Products",
-      image: "src/assets/projects/grid5.jpg",
-      href: "#fresh-products",
-    },
-    {
-      id: 6,
-      title: "Healthy Food",
-      image: "src/assets/projects/grid6.jpg",
-      href: "#healthy-food",
-    },
-  ];
+import { PROJECT_CATEGORIES } from '../utils/constants';
 
+const Projects = () => {
   return (
     <div className="container mx-auto px-20 max-w-6xl py-30">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {categories.map((category) => (
+        {PROJECT_CATEGORIES.map((category) => (
           <a
             key={category.id}
             href={category.href}

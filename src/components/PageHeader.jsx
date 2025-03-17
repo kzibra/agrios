@@ -1,31 +1,18 @@
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { PAGE_HEADERS } from '../utils/constants';
 
 const PageHeader = () => {
   const { pathname } = useLocation();
 
-  // Объект с информацией о страницах
-  const pageData = {
-    '/about': { title: 'About', backgroundImage: 'src/assets/wheat.header.jpg' },
-    '/services': { title: 'Services', backgroundImage: 'src/assets/wheat.header.jpg' },
-    '/projects': { title: 'Projects', backgroundImage: 'src/assets/wheat.header.jpg' },
-    '/news': { title: 'News Grid', backgroundImage: 'src/assets/wheat.header.jpg' },
-    '/shop': { 
-      navTitle: 'Shop', 
-      displayTitle: 'Our Shop', 
-      backgroundImage: 'src/assets/wheat.header.jpg' 
-    },
-    '/contact': { title: 'Contact', backgroundImage: 'src/assets/wheat.header.jpg' },
-  };
+  // Не рендерим компонент на главной странице
+  if (pathname === '/') return null;
 
   // Получаем данные страницы или дефолтные значения
-  const pageInfo = pageData[pathname] || {
+  const pageInfo = PAGE_HEADERS[pathname] || {
     title: 'Page',
     backgroundImage: 'https://tplabs.co/agrios/wp-content/uploads/2022/07/page-header-2.webp',
   };
-
-  // Не рендерим компонент на главной странице
-  if (pathname === '/') return null;
 
   // Определяем текст для навигации и заголовка
   const navText = pageInfo.navTitle || pageInfo.title;

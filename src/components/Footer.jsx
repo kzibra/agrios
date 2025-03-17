@@ -1,13 +1,10 @@
 import {
-  FaFacebook,
-  FaInstagram,
-  FaTwitter,
   FaPhone,
   FaEnvelope,
   FaMapMarkerAlt,
-  FaPinterest,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { CONTACT_INFO, SOCIAL_MEDIA } from '../utils/constants';
 
 const Footer = () => {
   return (
@@ -28,30 +25,19 @@ const Footer = () => {
             the majority suffered.
           </p>
           <div className="flex space-x-4">
-            <a
-              href="#"
-              className="text-white hover:text-green-500 transition-colors"
-            >
-              <FaTwitter size={20} />
-            </a>
-            <a
-              href="#"
-              className="text-white hover:text-green-500 transition-colors"
-            >
-              <FaFacebook size={20} />
-            </a>
-            <a
-              href="#"
-              className="text-white hover:text-green-500 transition-colors"
-            >
-              <FaPinterest size={20} />
-            </a>
-            <a
-              href="#"
-              className="text-white hover:text-green-500 transition-colors"
-            >
-              <FaInstagram size={20} />
-            </a>
+            {SOCIAL_MEDIA.map((social) => {
+              const SocialIcon = social.icon;
+              return (
+                <a 
+                  key={social.alt}
+                  href={social.href} 
+                  className="text-white hover:text-green-500 transition-colors"
+                  aria-label={social.alt}
+                >
+                  <SocialIcon size={20} />
+                </a>
+              );
+            })}
           </div>
         </div>
 
@@ -60,7 +46,8 @@ const Footer = () => {
           <div className="mb-6">
             <h3 className="text-xl font-semibold mb-4 relative inline-block">
               Explore
-              <span className="absolute bottom-0 left-0 w-1/2 h-1 bg-green-500"></span>
+              <span className="absolute bottom-[-12px] left-0 w-[45px] h-[4px] bg-green-500"></span>
+              <span className="absolute bottom-[-12px] left-[53px] w-1 h-1 bg-green-500 rounded-full"></span>
             </h3>
           </div>
           <ul className="space-y-3">
@@ -120,7 +107,8 @@ const Footer = () => {
           <div className="mb-6">
             <h3 className="text-xl font-semibold mb-4 relative inline-block">
               News
-              <span className="absolute bottom-0 left-0 w-1/2 h-1 bg-green-500"></span>
+              <span className="absolute bottom-[-12px] left-0 w-[45px] h-[4px] bg-green-500"></span>
+              <span className="absolute bottom-[-12px] left-[53px] w-1 h-1 bg-green-500 rounded-full"></span>
             </h3>
           </div>
           <div className="space-y-6">
@@ -159,27 +147,28 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Column 4 - Newsletter */}
+        {/* Column 4 - Contact */}
         <div className="space-y-4">
           <div className="mb-6">
             <h3 className="text-xl font-semibold mb-4 relative inline-block">
               Contact
-              <span className="absolute bottom-0 left-0 w-1/2 h-1 bg-green-500"></span>
+              <span className="absolute bottom-[-12px] left-0 w-[45px] h-[4px] bg-green-500"></span>
+              <span className="absolute bottom-[-12px] left-[53px] w-1 h-1 bg-green-500 rounded-full"></span>
             </h3>
           </div>
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <FaPhone className="text-green-500" />
-              <span className="text-gray-300">666 888 0000</span>
+              <span className="text-gray-300">{CONTACT_INFO.phone}</span>
             </div>
             <div className="flex items-center gap-3">
               <FaEnvelope className="text-green-500" />
-              <span className="text-gray-300">needhelp@company.com</span>
+              <span className="text-gray-300">{CONTACT_INFO.email}</span>
             </div>
             <div className="flex items-start gap-3">
               <FaMapMarkerAlt className="text-green-500 mt-1" />
               <span className="text-gray-300">
-                80 broklyn golden street line New York, USA
+                {CONTACT_INFO.address}
               </span>
             </div>
             <div className="mt-6 flex">
@@ -213,7 +202,7 @@ const Footer = () => {
       {/* Footer Bottom */}
       <div className="border-t border-gray-800">
         <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400">© All Copyright 2024 by shawonetc Themes</p>
+          <p className="text-gray-400"> All Copyright 2024 by shawonetc Themes</p>
           <div className="mt-4 md:mt-0 flex space-x-6">
             <Link
               to="/terms"

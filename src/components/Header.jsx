@@ -1,44 +1,11 @@
-import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { FaFacebook, FaInstagram, FaTwitter, FaBars, FaSearch, FaShoppingCart, FaPinterest } from 'react-icons/fa';
-
-import emailIcon from '/src/assets/email-icon.svg';
-import locationIcon from '/src/assets/location-icon.svg';
-import phoneIcon from '/src/assets/phone-icon.svg';
+import { FaBars, FaSearch, FaShoppingCart } from 'react-icons/fa';
+import { SOCIAL_MEDIA, CONTACT_INFO, NAV_LINKS } from '../utils/constants';
+import useMenu from '../hooks/useMenu';
 
 export function Header({ showNavigation = true, transparentBackground = false }) {
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => setIsMenuOpen(prev => !prev);
-
-  const socialMedia = [
-    { icon: FaTwitter, alt: "Twitter Logo", href: "#" },
-    { icon: FaFacebook, alt: "Facebook Logo", href: "#" },
-    { icon: FaPinterest, alt: "Pinterest Logo", href: "#" },
-    { icon: FaInstagram, alt: "Instagram Logo", href: "#" },
-  ];
-
-  const contactInfo = [
-    {
-      src: phoneIcon,
-      alt: "Phone Icon",
-      label: "Call anytime",
-      value: "+ 98 (000) - 9630"
-    },
-    {
-      src: emailIcon,
-      alt: "Email Icon",
-      label: "Send email",
-      value: "ambed@agrios.com"
-    },
-    {
-      src: locationIcon,
-      alt: "Location Icon",
-      label: "380 St Kilda Road",
-      value: "Melbourne, Australia"
-    },
-  ];
+  const { isOpen, toggle } = useMenu(false);
 
   const handleHomeNavigation = () => navigate("/");
 
@@ -63,20 +30,23 @@ export function Header({ showNavigation = true, transparentBackground = false })
 
           {/* Social Media Icons (between Logo and Right Section) */}
           <div className="flex space-x-2.5">
-            {socialMedia.map((social) => (
-              <a
-                key={social.alt}
-                href={social.href}
-                className="bg-[var(--color-social-bg)] p-[7px] rounded-full hover:bg-[var(--color-social-hover)] transition-colors"
-              >
-                <social.icon size={20} />
-              </a>
-            ))}
+            {SOCIAL_MEDIA.map((social) => {
+              const SocialIcon = social.icon;
+              return (
+                <a
+                  key={social.alt}
+                  href={social.href}
+                  className="bg-gray-100 p-[7px] rounded-full hover:bg-gray-200 transition-colors"
+                >
+                  <SocialIcon size={20} />
+                </a>
+              );
+            })}
           </div>
 
           {/* Contact Info */}
           <div className="hidden lg:flex items-center">
-            {contactInfo.map((info, index) => (
+            {CONTACT_INFO.icons.map((info, index) => (
               <div
                 key={info.alt}
                 className={`flex items-center px-5 py-2.5 lg:px-[10px] ${
@@ -85,7 +55,7 @@ export function Header({ showNavigation = true, transparentBackground = false })
               >
                 <img
                   className="p-2.5 lg:pl-[2px] w-12 h-12 object-contain"
-                  src={info.src}
+                  src={info.icon}
                   alt={info.alt}
                 />
                 <div>
@@ -106,7 +76,7 @@ export function Header({ showNavigation = true, transparentBackground = false })
               {/* Mobile Menu Button */}
               <button
                 className="lg:hidden flex items-center"
-                onClick={toggleMenu}
+                onClick={toggle}
               >
                 <FaBars className="h-6 w-6 text-[var(--color-custom-text)]" />
               </button>
@@ -114,45 +84,39 @@ export function Header({ showNavigation = true, transparentBackground = false })
               {/* Desktop Navigation Links */}
               <div className="hidden lg:flex items-center justify-center flex-1">
                 <div className="flex space-x-8">
-                  <Link to="/" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] px-3 py-2 text-base font-medium">
-                    Home
-                  </Link>
-                  <Link to="/about" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] px-3 py-2 text-base font-medium">
-                    About
-                  </Link>
-                  <div className="relative group">
-                    <button className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] px-3 py-2 text-base font-medium flex items-center">
-                      Services
-                      <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
-                    <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-[var(--color-custom-bg)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                      <div className="py-1">
-                        <Link to="/services" className="block px-4 py-2 text-sm text-[var(--color-custom-text)] hover:bg-[var(--color-social-hover)] hover:text-[var(--color-custom-hover)]">
-                          Services
-                        </Link>
-                        <Link to="/agriculture-products" className="block px-4 py-2 text-sm text-[var(--color-custom-text)] hover:bg-[var(--color-social-hover)] hover:text-[var(--color-custom-hover)]">
-                          Agriculture Products
-                        </Link>
-                        <Link to="/organic-products" className="block px-4 py-2 text-sm text-[var(--color-custom-text)] hover:bg-[var(--color-social-hover)] hover:text-[var(--color-custom-hover)]">
-                          Organic Products
-                        </Link>
+                  {NAV_LINKS.map((link) => (
+                    link.dropdown ? (
+                      <div key={link.name} className="relative group">
+                        <button className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] px-3 py-2 text-base font-medium flex items-center">
+                          {link.name}
+                          <svg xmlns="http://www.w3.org/2000/svg" className="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
+                        <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-[var(--color-custom-bg)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                          <div className="py-1">
+                            {link.children.map((child) => (
+                              <Link 
+                                key={child.name}
+                                to={child.path} 
+                                className="block px-4 py-2 text-sm text-[var(--color-custom-text)] hover:bg-[var(--color-social-hover)] hover:text-[var(--color-custom-hover)]"
+                              >
+                                {child.name}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <Link to="/projects" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] px-3 py-2 text-base font-medium">
-                    Projects
-                  </Link>
-                  <Link to="/news" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] px-3 py-2 text-base font-medium">
-                    News
-                  </Link>
-                  <Link to="/shop" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] px-3 py-2 text-base font-medium">
-                    Shop
-                  </Link>
-                  <Link to="/contact" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] px-3 py-2 text-base font-medium">
-                    Contact
-                  </Link>
+                    ) : (
+                      <Link 
+                        key={link.name}
+                        to={link.path} 
+                        className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] px-3 py-2 text-base font-medium"
+                      >
+                        {link.name}
+                      </Link>
+                    )
+                  ))}
                 </div>
               </div>
 
@@ -173,43 +137,37 @@ export function Header({ showNavigation = true, transparentBackground = false })
             </div>
 
             {/* Mobile Navigation Menu */}
-            {isMenuOpen && (
+            {isOpen && (
               <div className="lg:hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-[var(--color-custom-border)]">
-                  <Link to="/" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] block px-3 py-2 text-base font-medium">
-                    Home
-                  </Link>
-                  <Link to="/about" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] block px-3 py-2 text-base font-medium">
-                    About
-                  </Link>
-                  <div>
-                    <button className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] block px-3 py-2 text-base font-medium w-full text-left">
-                      Services
-                    </button>
-                    <div className="pl-6 border-l-2 border-[var(--color-custom-border)] ml-3">
-                      <Link to="/services" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] block px-3 py-2 text-base">
-                        Services
+                  {NAV_LINKS.map((link) => (
+                    link.dropdown ? (
+                      <div key={link.name}>
+                        <button className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] block px-3 py-2 text-base font-medium w-full text-left">
+                          {link.name}
+                        </button>
+                        <div className="pl-6 border-l-2 border-[var(--color-custom-border)] ml-3">
+                          {link.children.map((child) => (
+                            <Link 
+                              key={child.name}
+                              to={child.path} 
+                              className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] block px-3 py-2 text-base"
+                            >
+                              {child.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <Link 
+                        key={link.name}
+                        to={link.path} 
+                        className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] block px-3 py-2 text-base font-medium"
+                      >
+                        {link.name}
                       </Link>
-                      <Link to="/agriculture-products" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] block px-3 py-2 text-base">
-                        Agriculture Products
-                      </Link>
-                      <Link to="/organic-products" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] block px-3 py-2 text-base">
-                        Organic Products
-                      </Link>
-                    </div>
-                  </div>
-                  <Link to="/projects" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] block px-3 py-2 text-base font-medium">
-                    Projects
-                  </Link>
-                  <Link to="/news" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] block px-3 py-2 text-base font-medium">
-                    News
-                  </Link>
-                  <Link to="/shop" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] block px-3 py-2 text-base font-medium">
-                    Shop
-                  </Link>
-                  <Link to="/contact" className="text-[var(--color-custom-text)] hover:text-[var(--color-custom-hover)] block px-3 py-2 text-base font-medium">
-                    Contact
-                  </Link>
+                    )
+                  ))}
                 </div>
               </div>
             )}

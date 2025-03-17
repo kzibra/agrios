@@ -1,62 +1,12 @@
 import { FaUser, FaCommentAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { BLOG_POSTS } from '../utils/constants';
 
 const News = () => {
-  const blogPosts = [
-    {
-      id: 1,
-      image: "src/assets/news/grid1.jpg",
-      date: "05 July 2022",
-      author: "Kevin Martin",
-      comments: 1,
-      title: "Bringing Food Production Back To Cities",
-    },
-    {
-      id: 2,
-      image: "src/assets/news/grid2.jpg",
-      date: "05 July 2022",
-      author: "Kevin Martin",
-      comments: 0,
-      title: "The Future of Farming, Smart Irrigation Solutions",
-    },
-    {
-      id: 3,
-      image: "src/assets/news/grid3.jpg",
-      date: "05 July 2022",
-      author: "Kevin Martin",
-      comments: 0,
-      title: "Agronomy and relation to Other Sciences",
-    },
-    {
-      id: 4,
-      image: "src/assets/news/grid4.jpg",
-      date: "05 July 2022",
-      author: "Kevin Martin",
-      comments: 0,
-      title: "We grow products with the organic farming",
-    },
-    {
-      id: 5,
-      image: "src/assets/news/grid5.jpg",
-      date: "05 July 2022",
-      author: "Kevin Martin",
-      comments: 0,
-      title: "A Quick Solution to Low Milk Production in Zimbabwe",
-    },
-    {
-      id: 6,
-      image: "src/assets/news/grid6.jpg",
-      date: "05 July 2022",
-      author: "Kevin Martin",
-      comments: 0,
-      title: "Winter wheat harvest organic gather nice moment",
-    },
-  ];
-
   return (
     <div className="container mx-auto px-4 md:px-8 lg:px-20 max-w-6xl py-12">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {blogPosts.map((post) => (
+        {BLOG_POSTS.map((post) => (
           <div 
             key={post.id} 
             className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group"
