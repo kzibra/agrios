@@ -3,5 +3,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-@import "tailwindcss";
+@import 'tailwindcss';
 
+@layer base {
+  :root {
+    --color-custom-bg: #F4F4F3;
+    --color-custom-text: #878680;
+    --color-custom-hover: #000000;
+    --color-custom-border: #E4E2D7;
+    --color-social-bg: #f0f0f0;
+    --color-social-hover: #D1D1D1;
+  }
+}

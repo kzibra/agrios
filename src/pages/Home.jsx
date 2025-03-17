@@ -5,14 +5,6 @@ const Home = () => {
     <div className="font-poppins">
       {/* Hero Banner Section */}
       <section className="relative h-screen">
-        {/* Hero Background Image */}
-        <div 
-          className="absolute inset-0 z-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('https://tplabs.co/agrios/wp-content/uploads/2022/07/hero-1-scaled.webp')" }}
-        >
-          <div className="absolute inset-0 bg-black opacity-40"></div>
-        </div>
-        
         {/* Hero Content */}
         <div className="container mx-auto px-4 h-full relative z-10 flex items-center">
           <div className="max-w-2xl text-white">

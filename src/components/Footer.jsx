@@ -127,7 +127,7 @@ const Footer = () => {
             <div className="flex gap-4">
               <img
                 className="w-20 h-20 object-cover rounded"
-                src="https://tplabs.co/agrios/wp-content/uploads/2022/07/news-06-150x150.webp"
+                src="/src/assets/news/grid1.jpg"
                 alt="News thumbnail"
               />
               <div>
@@ -143,7 +143,7 @@ const Footer = () => {
             <div className="flex gap-4">
               <img
                 className="w-20 h-20 object-cover rounded"
-                src="https://tplabs.co/agrios/wp-content/uploads/2022/07/news-06-150x150.webp"
+                src="/src/assets/news/grid2.jpg"
                 alt="News thumbnail"
               />
               <div>
